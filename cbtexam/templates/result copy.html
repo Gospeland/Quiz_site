@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ {% if request.user.is_authenticated  %}
+<div class="container ">
+<h3 style='text-align: justify;';>POLL RESULTS</h3>
+    <div class="card-columns" style="padding: 10px; margin: 20px;">
+        <div class="card" align="centre " style="max-width: 32rem; border-radius: 1em; border: 0.1em green solid">
+            <img class="card-img-top" src="http://kmit.in/emagazine/wp-content/uploads/2018/02/karnataka-results.jpg" alt="Card image cap">
+            <div class="card-body"style='padding: 1em; border-radius: 1em; '>
+                <h5 class="card-title"> Vote Results </h5>
+ 
+                <p class="card-text">{{u.op1}}: {{u.op1score}}</p>
+                <p class="card-text">{{u.op2}}: {{u.op2score}} </p>
+                <p class="card-text">{{u.op3}}: {{u.op3score}}</p>
+                <p class="card-text">{{u.op4}}: {{u.op4score}}</p>
+
+                
+               
+                <h5> <a  href='{% url "polls"   %}'> Vote Again</a></h5>
+            </div>
+        </div>
+    </div>
+ 
+</div>
+ {% else %}
+Sorry, To be able to view your scores, you must be registered on the website or logged. Click here to login or Here to go back home
+ {% endif %}
+
+{% endblock %}

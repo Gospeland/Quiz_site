@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content   %}
+<h3> Add GCE Question </h3>
+
+<form method ='POST'>
+    {% csrf_token %}
+
+  {{form.as_p}}
+  
+  <input type='submit', value ='Submit'/>
+</form>
+
+{% endblock %}

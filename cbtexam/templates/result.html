@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ {% if request.user.is_authenticated  %}
+<div class="container ">
+<h3 style='text-align: justify;';>{{subject_class}}  {{subject}} MOCK EXAM RESULTS</h3>
+    <div class="card-columns" style="padding: 10px; margin: 20px;">
+        <div class="card" align="centre " style="max-width: 32rem; border-radius: 1em; border: 0.1em green solid">
+            <img class="card-img-top" src="http://kmit.in/emagazine/wp-content/uploads/2018/02/karnataka-results.jpg" alt="Card image cap">
+            <div class="card-body"style='padding: 1em; border-radius: 1em; '>
+                <h5 class="card-title">Score: {{score}}</h5>
+ 
+                <p class="card-text">Percentage: {{percent}}%</p>
+                <p class="card-text">Time Taken: {{time}} seconds</p>
+                <p class="card-text">Correct answers: {{correct}}</p>
+                <p class="card-text">Incorrect answers: {{wrong}}</p>
+                <p class="card-text">Total questions: {{total}}</p>
+                <p class="card-text">Answers {{answ}}</p>
+
+                <span style="color: green;"><b>CORRECTIONS</b></span><br>
+                {% for values in questions  %}
+                <p> <span style='color: red;'>Question: </span> {{values.question}} <br>
+                    <span style='color: green;'> Answer:  </span><b> {{values.ans}}</b></p>
+
+                {% endfor %}
+               
+                <h5>Congrats for getting this far!!!</h5>
+            </div>
+        </div>
+    </div>
+ 
+</div>
+ {% else %}
+Sorry, To be able to view your scores, you must be registered on the website or logged. Click here to login or Here to go back home
+ {% endif %}
+
+{% endblock %}

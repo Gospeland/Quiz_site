@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+    {% extends 'base.html' %}
+    {% block content %}
+
+<div id="container">
+<h3> {{title}}  {{subject}} Mock Exam Have Started!</h3>
+
+<div id="displaytimer" style='float: right; width: 15%; text-align: center; position: fixed; top: 10.5em; right: 0.2em; background: lightgreen; padding: 1em; '><b>Timer: 0 seconds</b></div>
+ {% if questions %}
+ <form id='checkbox' method='POST' action=''>
+
+    {% for q  in questions %}
+    <div class="form-group">
+      <label for="question">{{q.question}}</label>
+    </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios1" value="{{q.op1}}" checked>
+            <label class="form-check-label" for="gridRadios1">
+                {{q.op1}}
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios2" value="{{q.op2}}">
+            <label class="form-check-label" for="gridRadios2">
+                {{q.op2}}
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios1" value= "{{q.op3}}">
+            <label class="form-check-label" for="gridRadios3">
+                {{q.op3}}
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios2" value="{{q.op4}}">
+            <label class="form-check-label" for="gridRadios4">
+                {{q.op4}}
+            </label>
+{% comment %}
+            <input class="form-check-input" type="hidden" name="{{q.ans}}" id="gridRadios3" value="{{q.op5}}">
+            <label class="form-check-label" for="gridRadios5">
+                {{q.ans}}
+            </label>
+            {% endcomment %}
+        </div>
+        <br>
+        
+    {% endfor %}
+
+
+    <input id='timer' type='hidden' name="timer" value="">
+    <div class="pagination">
+        <span class="step-links">
+        {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo;
+            first</a>
+            <a href="?page={{page_obj.previous_page_number}}">
+                previous</a>
+    {% endif %}
+    
+                <span class="current">
+                    Page {{page_obj.number}}
+                    of {{page_obj.paginator.num_pages}} .
+                </span>
+    
+                    {% if page_obj.has_next %}
+                    <a href="?page={{page_obj.next_page_number}}">next</a>
+                        <a href="?page={{page_obj.paginator.num_pages}}">last &raquo;
+                            </a>
+    
+        {% endif %}
+                        </span>
+                    </div>
+    
+    <br>
+
+    <button style='font-size: 0.7em; border-radius: 0.8em; border: 1px solid lightgreen; padding: 1.5em; background: lightgreen; ' type="submit" class="btn btn-primary"><b>Submit</b></button>
+    <br><br>
+    
+  </form>
+  
+    {% block script %}
+        <script>
+
+            console.log('hello world')
+            const timer=document.getElementById('displaytimer')
+            console.log(timer.textContent)
+            const inputtag = document.getElementById('timer')
+
+            var t=0
+            var interval = setInterval(()=>{
+                t+=1
+                timer.innerHTML ="<b>Timer: " +t+" seconds</b>"
+                if(t==30){
+                    console.log('You have 5 seconds remaining')
+                }
+                if (t===60){
+                    clearInterval(interval)
+                    document.getElementById('checkbox').submit();
+                }
+                inputtag.value = t
+            },1000);
+            
+/*var timeout;
+function startTimeout(){
+    timeout= setTimeout(callbackFunc, 10000);
+}
+
+function stopTimeout(){
+ clearTimeout(timeout);
+}
+
+function callbackFunc(){
+    alert('hadadaddadada');
+}
+*/
+</script>
+    {% endblock script %}
+ 
+    {% else %}
+<p> Sorry! No questions available for the moment </p>
+{% endif %}
+</div>
+
+{% endblock %}

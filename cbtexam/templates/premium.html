@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3 >
+  Premium Plan Subscription    </h3>
+<div style='text-align:center; margin-top: 2em;'>
+<ul style='margin: auto; width: 80%; list-style-type: none;'>
+<li style='background: green;'>
+  <b> <p style='padding-top: 0.6em; padding-bottom: 0.6em; background: lightgreen; text-align: center;'><a style='background: lightgreen; color: darkblue; margin-top: 0; color: black;' href ='{% url "choose" %}'> Introducing the Premium Plan*</a></b>
+  </p>
+    <p style='padding: 0.9em; padding-top: 0.1em; color: white;'> We are happy to introduce the ExamGuide premium plan. With the premium plan, you can have access to all the questions available 
+on this website, get the personalised android/ios app for flexible studying, have access to our premium customer service support and will 
+get a heavily subsidized fee on our offline and online tutorial classes. What more can you ask for. To upgrade to premium now <a  style='color: darkblue;' href ='{% url "choose" %}'>Click Here </a></p>
+</li>
+</ul>
+</div>
+{% endblock %}

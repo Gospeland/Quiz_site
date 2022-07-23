@@ -1,0 +1,165 @@
+<head>
+    <style>
+        html {font-size: 1.3em; }
+        a { text-decoration: none; }
+        a:hover {font-size: 120%;  }
+        header {max-height: 15em;}
+
+        li { border-radius: 0.3em; }
+        body {background: white; color: black; }
+        .cover { display: grid; grid-template-columns: 12fr; grid-gap: 1.3em;}
+
+    .aside { display: grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(200px, 2fr)); background: white; margin: 0.1em; text-align: center;  box-shadow: 2px 9px 8px darkblue; }
+    .aside li {color: white; display: grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(200px, 2fr)); background: green; margin: 0.1em; text-align: center; border: 1px solid skyblue;}
+    .aside li a { padding: 0.3em;  color: white; }
+    .aside li a:hover { background: lightgreen; color: black; font-size: 120%; }
+    section {padding-left: 1em; padding-right: 1em;}
+
+        .board ul { list-style-type: square; pdding: 0.4em;}
+        
+.navigation {border-radius: 0.3em; margin-top: 1em; max-height: 100%; background: white; margin-bottom: 0.3em;}
+.nav li {color: white; margin: 0.1em; text-align: center; border-right: 1px solid black;}
+.nav li a { padding: 0.3em; display: block; color: white; }
+.nav li a:hover { background: lightgreen; color: darkblue; font-size: 120%; border: 1px solid greeen ;border-radius: 0.3em; }
+
+
+.navfooter {text-align: center; box-shadow: 2px 9px 8px lightgreen; }
+.navfooter li {color: white;  padding: 0.4em; display: inline; background: lightgreen; margin: 0.1em;  text-align: center; }
+.navfooter li a { padding: 0.3em; color: white; border: 1px solid skyblue; }
+.navfooter li a:hover { background: skyblue; color: darkblue; font-size: 120%;  }
+
+@media (min-width:800px){
+    .cover { display: grid; grid-template-columns: 2.5fr 9.5fr; grid-gap: 1.3em;  }
+    .aside {background: white;}
+    .aside { box-shadow: 2px 9px 8px lightgreen; }
+    .aside li {color: white;  background: green; margin: 0.1em; text-align: center; border: 1px solid skyblue;}
+    .aside li a { padding: 0.3em; display: block; color: white; }
+    .aside li a:hover { background: lightgreen; color: black; font-size: 120%;}
+                            }
+
+    </style>
+</head>
+
+<body style ='margin: 0em; padding: 0.1em; font-size: 1.3em;  backgrund: skyblue;'>   
+
+    <header style= ' box-shadow: 2px 6px 5px grey;margin: 0em; padding-bottom: 0.1em; padding-left: 1em; padding-right: 1em; padding-top: 0.5em; max-height: 190em; 
+    background: green; color: white;'>
+
+    
+
+
+    {% if request.user.is_authenticated or request.user.is_superuser  %}
+    <ul class='nav' style='float: right; list-style-type: none;' >
+   <li> <a  style ='color: white; ' href = '{% url "index" %}'> Welcome {{request.user.first_name}} </a></li>
+
+    </ul>
+
+{% else %} 
+    <ul class='nav' style='float: right; list-style-type: none;' >
+        <li> <a  style ='color: white; ' href = '{% url "register" %}'>  Register </a></li>
+
+         </ul>
+    {% endif %}
+    {% for log in logos  %}
+    <img style="backgrond: skyblue; float: left; margin: 0.4em; width: 100px; height: 100px;" src ="{{log.pic.url}}"  >
+{% endfor %}
+<p style='text-shadow: 2px  8px skyblue;'><h2 style='text-align: left; '><a style='color: white;' href='{% url "index" %}'>ExamGuide Center</a></h2></p>
+<p style='text-align: left; padding-bottom: 1.2em;'> <small> .....bringing out the best in the child </small></p>
+
+<ul class='nav' style='list-style-type: none; display: grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(200px, 2fr));'>
+    <li><a  style ='color: white; ' href ='{% url "choose" %}'> Online Exam </a></li>
+    {% if   not request.user.is_authenticated %}
+    <li><a  style ='color: white; ' href ='{% url "login" %}'> Login </a></li>
+    {% endif %}
+    {% if   request.user.is_superuser or  request.user.is_teacher %}
+    <li><a  style ='color: white; ' href ='{% url "addquestion" %}'> Add question </a></li>
+    {% endif %}        
+
+    <li> <a href ='{% url "choose" %}'> Subjects </a> </li>
+    <li> <a href ='{% url "publist" %}'>   School News </a> </li>
+    <li> <a href ='{% url "scholarshiplist" %}'>   Scholarships </a> </li>
+    <li><a href ='{% url "choose" %}'> Tutorials* </a></li>
+    <li><a href ='{% url "premium" %}'> Premium* </a></li>
+    <li><a href ='{% url "polls" %}'> Trending Polls </a></li>
+
+    {% comment "" %}
+
+    <li><a href ='{% url "staffs" %}'> Our Staffs </a></li>
+    {% endcomment %}
+    {% if   request.user.is_superuser or  request.user.is_authenticated %}
+    <li><a  style ='color: white; ' href ='{% url "logout" %}'> Logout </a></li>
+    {% endif %}     
+    </ul>
+    </header>
+    
+<div class ='cover'>
+<nav class='navigation'>
+    <ul class ='aside' style =' padding:0;  list-style-type: none;'>
+        {% if request.user.is_student or request.user.is_superuser  %}
+        <li><a href ='{% url "studentprofile" %}'> Student Dashboard </a></li>
+        {% endif %}
+{% if request.user.is_teacher or request.user.is_superuser%}
+        <li><a href ='{% url "index" %}'> Staff Dashboard </a></li>
+        {% endif %}
+        {% if   request.user.is_superuser%}
+        <li><a  style ='color: white; ' href ='{% url "createsubject" %}'> Create Subject </a></li>
+
+        {% endif %}  
+        <li><a href ='{% url "index" %}'> Home </a></li>
+        <li><a href ='{% url "publist" %}'> Latest  News </a></li>
+        <li><a href ='{% url "scholarshiplist" %}'> Scholarships </a></li>
+        <li> <a href ='{% url "aboutus" %}'> About us* </a> </li>
+        <li> <a href ='{% url "index" %}'> Contact us* </a> </li>
+        <li> <a href ='{% url "index" %}'> Tutorials* </a> </li>
+        <li> <a href ='{% url "index" %}'> Forum* </a> </li>
+        <li><b><a style='background: lightgreen; color: darkblue; margin-top: 0; color: black;' href ='{% url "choose" %}'> Introducing the Premium Plan*</a></b>
+            <p style='padding: 0.5em; '>Premium plan now available. To upgrade,  <a  style='color: darkblue;' href ='{% url "choose" %}'>Click Here </a></p>
+        </li>
+
+
+    </ul>
+    {% comment "" %}
+    <div style='text-align: center; margin-bottom: 0.5em; padding: 0.2em; background: darkblue; color: white;font-size: medium'>
+        <h4 style='padding: 0em;'>NOTICE </h4><hr>
+        {% for pub in publications %}
+         <a  href='{% url "details" pub.slug  %}'> {{pub.title}}</a><br><br style='color: skyblue;'>
+{% endfor %}
+<p style='margin: 0em;'><a  style=' color: white; ' href='{% url "publist"  %}'> View all.....</a></p>
+    </div>
+    <hr>
+    {% endcomment %}
+</nav>
+
+<section>
+    
+{% block content %}
+
+{% endblock %}
+</section>
+</div>
+
+
+<footer style= 'max-height: 18em; box-shadow: 2px 6px 5px grey; margin: 0em; 
+padding-left: 1em; padding-right: 1em; padding-top: 0.2em; padding-bottom: 0.2em; 
+    background: green; color: grey;'>
+
+
+    <nav>
+        <ul class ='nav' style =' padding:0; list-style-type: none; display: grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(200px, 2fr));'>
+            {% if request.user.is_student or request.user.is_superuser  %}
+            <li><a href ='{% url "studentprofile" %}'> Dashboard </a></li>
+            {% endif %}
+    {% if request.user.is_teacher or request.user.is_superuser%}
+            <li><a href ='{% url "index" %}'> Staff Portal </a></li>
+            {% endif %}
+            <li><a href ='{% url "index" %}'> Home </a></li>
+            <li><a href ='{% url "publist" %}'> School News </a></li>
+            <li><a href ='{% url "scholarshiplist" %}'> Scholarships </a></li>
+            <li><a href ='{% url "aboutus" %}'> Abous Us* </a></li>
+            <li><a href ='{% url "index" %}'>   Contact Us* </a></li>
+    </nav>
+
+
+    
+</footer>
+</body>

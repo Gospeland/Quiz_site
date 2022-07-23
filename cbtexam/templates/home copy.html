@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+    {% extends 'base.html' %}
+    {% block content %}
+
+<div id="container">
+<h3> Present {{title}} </h3>
+
+ {% if u %}
+ <form id='checkbox' method='POST' action=''>
+
+    <div class="form-group">
+      <label for="question">{{u.question}}</label>
+    </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="option" id="gridRadios1" value="{{u.op1}}" checked>
+            <label class="form-check-label" for="gridRadios1">
+                {{u.op1}}
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="option" id="gridRadios2" value="{{u.op2}}">
+            <label class="form-check-label" for="gridRadios2">
+                {{u.op2}}
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="option" id="gridRadios1" value= "{{u.op3}}">
+            <label class="form-check-label" for="gridRadios3">
+                {{u.op3}}
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="option" id="gridRadios2" value="{{u.op4}}">
+            <label class="form-check-label" for="gridRadios4">
+                {{u.op4}}
+            </label>
+{% comment %}
+            <input class="form-check-input" type="hidden" name="{{q.ans}}" id="gridRadios3" value="{{q.op5}}">
+            <label class="form-check-label" for="gridRadios5">
+                {{q.ans}}
+            </label>
+            {% endcomment %}
+        </div>
+        <br>
+        
+    <br>
+
+    <button style='font-size: 0.7em; border-radius: 0.8em; border: 1px solid lightgreen; padding: 1.5em; background: lightgreen; ' type="submit" class="btn btn-primary"><b>Submit</b></button>
+    <br><br>
+    
+  </form>
+  
+    
+
+    {% else %}
+<p> Sorry! No poll available for the moment </p>
+{% endif %}
+</div>
+
+{% endblock %}

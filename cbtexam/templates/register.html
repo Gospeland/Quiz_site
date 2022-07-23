@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content   %}
+
+{% if messages %}
+{% for message in messages %}
+<p style='background: black; color: white; padding: 2em; max-width: 30%; text-align: center;' >{{message|safe}} <br></p>
+{% endfor %}
+{% endif %}
+
+<form method="post">
+  {% csrf_token %}
+  <div id='box' style='border: 1px solid black; border-radius: 0.3em; margin-top:2em;'>
+  <fieldset>
+       <legend>
+           <h1>Register Here </h1>
+         </legend>
+          {% if error_message %}
+          <p><strong>{{ error_message }}</strong></p>
+          {% endif %}
+          <label for="userinput">Username</label>
+           <input type="textbox" style='padding: 1em; width: 30em;border-radius: 0.3em;'  name="username" class='form-control' id="userinput" placeholder='Enter Username' required autofocus>
+           <br>
+           <br>
+           <label for="userinput">Password</label>
+           <input type="textbox" name="password" style='border-radius: 0.3em; padding: 1em; width: 30em;' class='form-control' id="userpwd" placeholder='Enter Password' required>
+            <br>
+            <br>
+           <label for="emailinput">Email address</label>
+           <input type="textbox" style='padding: 1em; width: 30em;border-radius: 0.3em;'  name="email" class='form-control' id="emailinput" placeholder='Enter Email Address' required autofocus>
+           <br>
+           <br>
+           <label for="status">Student Status </label>
+           <input type="checkbox" style='padding: 1em; border-radius: 0.3em;'  name="is_student" class='form-control' id="statusinput" placeholder='Enter Student Status' required autofocus>
+           <br>
+           <br>
+           <label for="phoneinput">Phone Number</label>
+           <input type="textbox" name="phone" style='border-radius: 0.3em; padding: 1em; width: 30em;' class='form-control' id="phoneinput" placeholder='Enter Phone Number' required>
+<br>
+  <br>
+  <label for="stateinput">State Name</label>
+           <input type="textbox" style='padding: 1em; width: 30em;border-radius: 0.3em;'  name="state" class='form-control' id="stateinput" placeholder='Enter State Name' required autofocus>
+           <br>
+           <br>
+  <label for="countryinput">Country Name </label>
+           <input type="textbox" style='padding: 1em; width: 30em;border-radius: 0.3em;'  name="country" class='form-control' id="countryinput" placeholder='Enter Country Name' required autofocus>
+           <br>
+           <br>
+  <input id='myform' style='padding: 1em; width: 10em;border-radius: 0.3em; font-size: 0.5em; padding:0.5em;' type="submit" value="Submit">
+</fieldset>
+
+</div>
+
+  </form>
+
+  {% block script %}
+  <script>
+  
+       const box = document.querySelector('#box')
+       box.style.background='white';
+       box.addEventListener('mouseover',  (e) =>{
+            box.style.background='lightgreen';
+       })
+       box.addEventListener('mouseout',  (e) =>{
+            box.style.background='white';
+       })
+  
+       
+  </script>
+  {% endblock script %}
+
+{% comment "" %}
+<h3> Register Now </h3>
+
+<form method ='POST'>
+    {% csrf_token %}
+
+  {{form.as_p}}
+  
+  <input type='submit', value ='Register'/>
+</form>
+{% endcomment %}
+
+{% endblock %}

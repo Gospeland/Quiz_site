@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content  %}
+<br>
+{% if  request.user.is_superuser  or request.user.is_student %}
+
+<ul style ='list-style-type: none;'>
+
+<h3 style='color: darkblue'> Student Profile </h3>
+<li style='float: right;'> <img src='{{users1.profile_pic}}'  width='150px' height='150px'/> </li>
+<li>Username: {{users1.username}}</li>
+<li>Name: {{users1.first_name}} {{users1.last_name}} </li>
+<li>Email: {{users1.email}}</li>
+<li>Phone: {{users1.phone}}</li>
+<li>State: {{users1.state}}</li>
+<li>Address: {{users1.mailing_address}}</li>
+<li>Enrollment Date: {{users1.date_enrolled}}</li>
+<li>Study Field: {{users1.study_field}}</li>
+<li>Class: {{users1.class_enrolled}} </li>
+{% comment "" %}
+<li> <a href ="{% url 'register' users1.pk %}" > Update  Profile </a> </li>
+{% endcomment %}
+</ul>
+<p style='font-size: medium; color: red;'>NOTICE:  You might see different values from what you filled in. Don't worry, your data is filled automatically from the school database </p>
+
+
+<h3 style='color: darkblue'> MY RESULTS ({{results.count}})</h3>
+<div style='display: grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(400px, 2fr));'>
+{% for myresult in results %}
+<ul style ='list-style-type: none;'>
+  <li>Exam Name: {{myresult.author_subject}}</li>
+  <li>Exam Type: {{myresult.author_class}}</li>
+  <li>Date Taken: {{myresult.date_taken.date}} </li>
+  <li>Correct: {{myresult.correct}}</li>
+  <li>Incorrect: {{myresult.incorrect}}</li>
+  <li>Total Score: {{myresult.total_score}}%</li>
+  {% comment "" %}
+  <li> <a href ="{% url 'register' users1.pk %}" > Update  Profile </a> </li>
+  {% endcomment %}
+  </ul>
+    {% endfor %}
+    <div>
+
+{% else %}
+  <p style='color: red; font-size: 1em; text-align: center;padding: 3em;'> <b> Back off! You are not permitted to be here!! </b></p>
+{% endif %}
+{% endblock  %}

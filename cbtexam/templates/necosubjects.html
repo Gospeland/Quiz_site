@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3 style='text-align: center;'>   AVAILABLE EXAMS BY SUBJECTS </h3>
+
+<div style='display: grid; grid-gap: 0.2em; grid-template-columns: repeat(auto-fill, minmax(250px, 2fr));'>
+{% for post in neco %}
+<ul style='list-style-type: none;' >
+<li> <a  href='{% url "necoexams" post.pk  %}'> {{post.name}}</a></li>
+</ul>
+{% endfor %}
+</div>
+{% endblock %}

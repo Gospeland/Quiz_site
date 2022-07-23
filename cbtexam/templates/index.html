@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+<p style='background: black; color: white; padding: 2em; max-width: 30%; text-align: center;' >{{message|safe}} <br></p>
+{% endfor %}
+{% endif %}
+
+<div style='box-shadow: 2px 9px 8px black; border-radius: 1em; border: 2px solid black; padding: 1em; margin-top: 1em; text-align: center; background: lightgreen; max-width: 6000px;'>
+    <h3 style='text-align: center;'>
+WELCOME TO THE EXAMGUIDE CENTER    </h3>
+<p> We care about your education and  always want you to excel in your academics. As such, we have created a lot of offers and features for you on this website. Scroll down below to see  some of these great features of the website</p>
+
+<p> However, to access all parts of this website, especially the online mock exams (WAEC, NECO, JAMB) features, you need to have a registered account with us </p>
+{% if request.user.is_anonymous %}
+<p> Register <a href ="{% url 'register' %}"> Here</a> or <a href ="{% url 'login' %}"> Login </a> if you already have an account</p>
+{% endif %}
+
+</div>
+<br>
+
+<h3 style='text-align: center;'> FEATURES OF THIS WEBSITE </h3>
+<div style='box-shadow: 2px 9px 8px black; border-radius: 1em; border: 2px solid black; background: white; '>
+<ul style='padding-right: 1em; font-size: 120%; display: grid; grid-gap: 0.3em; grid-template-columns: repeat(auto-fill, minmax(250px, 2fr));list-style-type: none;' >
+<li style='box-shadow: 2px 9px 8px black;text-align: center; background: lightgreen; padding: 1em; border: 2px solid white;'><a href ="{% url 'choose' %}"> Online Mock Exams</a></li>
+<li style='box-shadow: 2px 9px 8px black; text-align: center; background: lightgreen; padding: 1em; border: 2px solid white;'><a href ="{% url 'scholarshiplist' %}"> Scholarships</a></li>
+<li style='box-shadow: 2px 9px 8px black; text-align: center; background: lightgreen; padding: 1em; border: 2px solid white;'><a href ="{% url 'publist' %}"> Latest School News</a></li>
+<li style='box-shadow: 2px 9px 8px black; text-align: center; background: lightgreen; padding: 1em; border: 2px solid white;'>Connection with Friends</li>
+<li style='box-shadow: 2px 9px 8px black; text-align: center; background: lightgreen; padding: 1em; border: 2px solid white;'>Personalised Tutorial</li>
+
+</ul>
+</div>
+<br>
+<h3 style='text-align: center;'>   AVAILABLE ONLINE MOCK EXAMINATIONS </h3>
+<div style='margin-bottom: 2em; box-shadow: 2px 9px 8px black; border-radius: 1em; border: 2px solid black; background: white; '>
+    <ul style='padding-right: 1em; font-size: 120%; display: grid; grid-gap: 0.3em; grid-template-columns: repeat(auto-fill, minmax(250px, 2fr));list-style-type: none;' >
+    <li style='box-shadow: 2px 9px 8px black;text-align: center; background: lightgreen; padding: 1em; border: 2px solid white;'><a href="{% url 'subjectgce' %}">GCSE Exams</a></li>
+    <li style='box-shadow: 2px 9px 8px black; text-align: center; background: lightgreen; padding: 1em; border: 2px solid white;'><a href="{% url 'subjectssce' %}">SSCE exams</a></li>
+    <li style='box-shadow: 2px 9px 8px black; text-align: center; background: lightgreen; padding: 1em; border: 2px solid white;'><a href="{% url 'subjectneco' %}">NECO Exams</a></li>
+    <li style='box-shadow: 2px 9px 8px black; text-align: center; background: lightgreen; padding: 1em; border: 2px solid white;'><a href="{% url 'subjectjamb' %}">JAMB  Exams</a></li>
+    
+    </ul>
+    </div>
+
+{% endblock %}
